@@ -1,0 +1,197 @@
+[
+    {
+        "id": "email_001",
+        "sender": {
+            "name": "Sarah Jones",
+            "email": "sarah.jones@example.com"
+        },
+        "subject": "Project Update: Q4 Goals",
+        "body": "Hi Team,\n\nHere is the update on our Q4 goals. We are on track for the marketing launch. Please review the attached document and let me know if you have any feedback by Friday.\n\nBest,\nSarah",
+        "timestamp": "2023-10-26T10:00:00Z",
+        "category": "Uncategorized",
+        "actionItems": [],
+        "isProcessed": false
+    },
+    {
+        "id": "email_002",
+        "sender": {
+            "name": "Newsletter Bot",
+            "email": "news@techdaily.com"
+        },
+        "subject": "Tech Daily: AI Revolution",
+        "body": "Top stories today: AI is changing the way we work. Read more about the latest tools and trends...",
+        "timestamp": "2023-10-26T09:30:00Z",
+        "category": "Uncategorized",
+        "actionItems": [],
+        "isProcessed": false
+    },
+    {
+        "id": "email_003",
+        "sender": {
+            "name": "Boss Man",
+            "email": "boss@company.com"
+        },
+        "subject": "Urgent: Client Meeting",
+        "body": "Can you jump on a call at 2 PM today? We need to discuss the client proposal. It's urgent.",
+        "timestamp": "2023-10-26T09:00:00Z",
+        "category": "Uncategorized",
+        "actionItems": [],
+        "isProcessed": false
+    },
+    {
+        "id": "email_004",
+        "sender": {
+            "name": "Spam King",
+            "email": "offers@deals.com"
+        },
+        "subject": "You won a prize!",
+        "body": "Click here to claim your prize now! Limited time offer.",
+        "timestamp": "2023-10-25T15:00:00Z",
+        "category": "Uncategorized",
+        "actionItems": [],
+        "isProcessed": false
+    },
+    {
+        "id": "email_005",
+        "sender": {
+            "name": "Alice Smith",
+            "email": "alice@example.com"
+        },
+        "subject": "Lunch tomorrow?",
+        "body": "Hey, are you free for lunch tomorrow? Let's try that new place downtown.",
+        "timestamp": "2023-10-25T12:00:00Z",
+        "category": "Uncategorized",
+        "actionItems": [],
+        "isProcessed": false
+    },
+    {
+        "id": "email_006",
+        "sender": {
+            "name": "Dev Team",
+            "email": "dev-updates@company.com"
+        },
+        "subject": "Weekly Sprint Report",
+        "body": "The sprint is going well. We have completed 80% of the tasks. The remaining 20% are in code review.",
+        "timestamp": "2023-10-25T10:00:00Z",
+        "category": "Uncategorized",
+        "actionItems": [],
+        "isProcessed": false
+    },
+    {
+        "id": "email_007",
+        "sender": {
+            "name": "HR Department",
+            "email": "hr@company.com"
+        },
+        "subject": "Open Enrollment for Benefits",
+        "body": "It's that time of year again! Open enrollment for health benefits starts next week. Please review the attached guide.",
+        "timestamp": "2023-10-24T14:00:00Z",
+        "category": "Uncategorized",
+        "actionItems": [],
+        "isProcessed": false
+    },
+    {
+        "id": "email_008",
+        "sender": {
+            "name": "Project Manager",
+            "email": "pm@company.com"
+        },
+        "subject": "Action Required: Approve Budget",
+        "body": "Please review and approve the budget for the Q1 marketing campaign by end of day tomorrow.",
+        "timestamp": "2023-10-24T11:00:00Z",
+        "category": "Uncategorized",
+        "actionItems": [],
+        "isProcessed": false
+    },
+    {
+        "id": "email_009",
+        "sender": {
+            "name": "LinkedIn",
+            "email": "notifications@linkedin.com"
+        },
+        "subject": "You appeared in 5 searches this week",
+        "body": "See who's looking at your profile. 5 people searched for you.",
+        "timestamp": "2023-10-24T09:00:00Z",
+        "category": "Uncategorized",
+        "actionItems": [],
+        "isProcessed": false
+    },
+    {
+        "id": "email_010",
+        "sender": {
+            "name": "Mom",
+            "email": "mom@family.com"
+        },
+        "subject": "Weekend Plans",
+        "body": "Are you coming home this weekend? Let me know so I can buy groceries.",
+        "timestamp": "2023-10-23T18:00:00Z",
+        "category": "Uncategorized",
+        "actionItems": [],
+        "isProcessed": false
+    },
+    {
+        "id": "email_011",
+        "sender": {
+            "name": "Cloud Service",
+            "email": "billing@cloud.com"
+        },
+        "subject": "Invoice #12345",
+        "body": "Your invoice for October is ready. Amount due: $50.00. Auto-pay is enabled.",
+        "timestamp": "2023-10-23T10:00:00Z",
+        "category": "Uncategorized",
+        "actionItems": [],
+        "isProcessed": false
+    },
+    {
+        "id": "email_012",
+        "sender": {
+            "name": "Recruiter",
+            "email": "recruiter@agency.com"
+        },
+        "subject": "Exciting Opportunity",
+        "body": "I came across your profile and thought you'd be a great fit for a Senior Developer role at a top tech company.",
+        "timestamp": "2023-10-22T15:30:00Z",
+        "category": "Uncategorized",
+        "actionItems": [],
+        "isProcessed": false
+    },
+    {
+        "id": "email_013",
+        "sender": {
+            "name": "Security Team",
+            "email": "security@company.com"
+        },
+        "subject": "Security Training Due",
+        "body": "This is a reminder to complete your mandatory security training by the end of the month.",
+        "timestamp": "2023-10-22T09:00:00Z",
+        "category": "Uncategorized",
+        "actionItems": [],
+        "isProcessed": false
+    },
+    {
+        "id": "email_014",
+        "sender": {
+            "name": "Gym",
+            "email": "info@gym.com"
+        },
+        "subject": "Class Cancellation",
+        "body": "The 6 PM Yoga class today has been cancelled due to instructor illness.",
+        "timestamp": "2023-10-21T16:00:00Z",
+        "category": "Uncategorized",
+        "actionItems": [],
+        "isProcessed": false
+    },
+    {
+        "id": "email_015",
+        "sender": {
+            "name": "Coffee Shop",
+            "email": "rewards@coffee.com"
+        },
+        "subject": "Double Points Day!",
+        "body": "Come in today and get double points on all latte purchases.",
+        "timestamp": "2023-10-21T08:00:00Z",
+        "category": "Uncategorized",
+        "actionItems": [],
+        "isProcessed": false
+    }
+]
