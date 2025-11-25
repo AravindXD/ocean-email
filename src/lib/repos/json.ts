@@ -4,12 +4,18 @@ import { Email, Prompt, Draft } from "@/types";
 import { IEmailRepository, IPromptRepository, IDraftRepository } from "./types";
 
 // Use /tmp on Vercel (serverless), otherwise use local data directory
-const DATA_DIR = process.env.NEXT_PUBLIC_VERCEL_URL ? "/tmp/data" : path.join(process.cwd(), "data");
+const isVercel = process.env.VERCEL || process.env.NEXT_PUBLIC_VERCEL_URL;
+const DATA_DIR = isVercel ? "/tmp/data" : path.join(process.cwd(), "data");
+
+console.log("[DEBUG] Repository initialized");
+console.log("[DEBUG] isVercel:", !!isVercel);
+console.log("[DEBUG] DATA_DIR:", DATA_DIR);
 
 async function ensureDir(dir: string) {
   try {
     await fs.access(dir);
   } catch {
+    console.log(`[DEBUG] Creating directory: ${dir}`);
     await fs.mkdir(dir, { recursive: true });
   }
 }
@@ -18,14 +24,21 @@ async function readJson<T>(filePath: string): Promise<T | null> {
   try {
     const data = await fs.readFile(filePath, "utf-8");
     return JSON.parse(data) as T;
-  } catch {
+  } catch (error) {
+    // console.log(`[DEBUG] Failed to read file ${filePath}:`, error);
     return null;
   }
 }
 
 async function writeJson<T>(filePath: string, data: T): Promise<void> {
-  await ensureDir(path.dirname(filePath));
-  await fs.writeFile(filePath, JSON.stringify(data, null, 2));
+  try {
+    await ensureDir(path.dirname(filePath));
+    await fs.writeFile(filePath, JSON.stringify(data, null, 2));
+    console.log(`[DEBUG] Wrote file: ${filePath}`);
+  } catch (error) {
+    console.error(`[ERROR] Failed to write file ${filePath}:`, error);
+    throw error;
+  }
 }
 
 export class JsonEmailRepository implements IEmailRepository {
