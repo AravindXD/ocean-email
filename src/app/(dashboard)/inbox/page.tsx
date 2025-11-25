@@ -7,11 +7,11 @@ import { redirect } from "next/navigation";
 export default async function InboxPage() {
     const session = await getServerSession(authOptions);
 
-    if (!session || !session.user) {
+    if (!session || !session.user || !session.user.email) {
         redirect("/api/auth/signin");
     }
 
-    const emails = await db.emails.getUserEmails(session.user.id);
+    const emails = await db.emails.getUserEmails(session.user.email);
 
     return <InboxClient initialEmails={emails} />;
 }

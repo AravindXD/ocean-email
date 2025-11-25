@@ -7,11 +7,11 @@ import { categorizeEmail, extractActions } from "@/lib/gemini";
 export async function POST() {
   const session = await getServerSession(authOptions);
 
-  if (!session || !session.user) {
+  if (!session || !session.user || !session.user.email) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const userId = session.user.id;
+  const userId = session.user.email;
 
   try {
     const emails = await db.emails.getUserEmails(userId);
