@@ -4,7 +4,7 @@ import { Email, Prompt, Draft } from "@/types";
 import { IEmailRepository, IPromptRepository, IDraftRepository } from "./types";
 
 // Use /tmp on Vercel (serverless), otherwise use local data directory
-const DATA_DIR = process.env.VERCEL ? "/tmp/data" : path.join(process.cwd(), "data");
+const DATA_DIR = process.env.NEXT_PUBLIC_VERCEL_URL ? "/tmp/data" : path.join(process.cwd(), "data");
 
 async function ensureDir(dir: string) {
   try {
