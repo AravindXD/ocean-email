@@ -17,7 +17,7 @@ export async function POST() {
 
   try {
     // Load Mock Emails
-    const mockEmailsPath = path.join(process.cwd(), "data", "shared", "mock-emails.json");
+    const mockEmailsPath = path.join(process.cwd(), "public", "data", "mock-emails.json");
     const mockEmailsData = await fs.readFile(mockEmailsPath, "utf-8");
     const mockEmails: Email[] = JSON.parse(mockEmailsData);
 
@@ -30,7 +30,7 @@ export async function POST() {
     // Load Default Prompts if user has none
     const existingPrompts = await db.prompts.getAll(userId);
     if (existingPrompts.length === 0) {
-      const defaultPromptsPath = path.join(process.cwd(), "data", "shared", "default-prompts.json");
+      const defaultPromptsPath = path.join(process.cwd(), "public", "data", "default-prompts.json");
       const defaultPromptsData = await fs.readFile(defaultPromptsPath, "utf-8");
       const defaultPrompts: Prompt[] = JSON.parse(defaultPromptsData);
 

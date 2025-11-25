@@ -1,0 +1,20 @@
+[
+    {
+        "id": "categorization",
+        "type": "categorization",
+        "content": "Analyze the following email and categorize it into one of these categories: Important, Newsletter, Spam, To-Do. Return only the category name.",
+        "updatedAt": "2023-10-26T00:00:00Z"
+    },
+    {
+        "id": "action_extraction",
+        "type": "action_extraction",
+        "content": "Analyze the following email and extract any action items. Return a JSON array where each item has 'description', 'deadline' (if any), and 'priority' (High/Medium/Low). If no tasks, return empty array.",
+        "updatedAt": "2023-10-26T00:00:00Z"
+    },
+    {
+        "id": "auto_reply",
+        "type": "auto_reply",
+        "content": "Draft a professional and friendly reply to this email. Keep it concise (2-3 sentences).",
+        "updatedAt": "2023-10-26T00:00:00Z"
+    }
+]
