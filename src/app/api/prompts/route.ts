@@ -2,9 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-
-import path from "path";
-import fs from "fs/promises";
+import defaultPromptsData from "@/lib/data/default-prompts.json";
 
 export async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions);
@@ -16,9 +14,7 @@ export async function GET(req: NextRequest) {
     let prompts = await db.prompts.getAll(session.user.email);
 
     if (prompts.length === 0) {
-      const defaultPromptsPath = path.join(process.cwd(), "public", "data", "default-prompts.json");
-      const defaultPromptsData = await fs.readFile(defaultPromptsPath, "utf-8");
-      const defaultPrompts = JSON.parse(defaultPromptsData);
+      const defaultPrompts = defaultPromptsData;
 
       for (const p of defaultPrompts) {
         await db.prompts.create(session.user.email, {
