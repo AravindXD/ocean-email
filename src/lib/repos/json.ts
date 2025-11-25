@@ -48,8 +48,11 @@ export class JsonEmailRepository implements IEmailRepository {
 
   async getUserEmails(userId: string): Promise<Email[]> {
     const dir = this.getUserDir(userId);
+    console.log(`[DEBUG] Reading emails from: ${dir}`);
     await ensureDir(dir);
     const files = await fs.readdir(dir);
+    console.log(`[DEBUG] Found ${files.length} files in email directory`);
+    
     const emails: Email[] = [];
     for (const file of files) {
       if (file.endsWith(".json")) {
@@ -57,6 +60,7 @@ export class JsonEmailRepository implements IEmailRepository {
         if (email) emails.push(email);
       }
     }
+    console.log(`[DEBUG] Parsed ${emails.length} emails`);
     return emails.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
   }
 
