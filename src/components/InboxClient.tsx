@@ -15,20 +15,40 @@ interface InboxClientProps {
 }
 
 export function InboxClient({ initialEmails }: InboxClientProps) {
-    const { setEmails, isLoading, setLoading, emails, filterCategory, setFilterCategory } = useAppStore();
+    const { setEmails, setPrompts, isLoading, setLoading, emails, filterCategory, setFilterCategory } = useAppStore();
     const router = useRouter();
     const [isClearModalOpen, setIsClearModalOpen] = useState(false);
 
     useEffect(() => {
-        setEmails(initialEmails);
+        // Only sync from server if server has data (prevents wiping local storage on Vercel)
+        if (initialEmails && initialEmails.length > 0) {
+            setEmails(initialEmails);
+        }
     }, [initialEmails, setEmails]);
 
     const handleProcessInbox = async () => {
         setLoading(true);
         try {
-            const res = await fetch("/api/emails/process", { method: "POST" });
+            // Send current emails to server for processing
+            const res = await fetch("/api/emails/process", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ emails })
+            });
+
             if (res.ok) {
-                router.refresh(); // Re-fetch server data
+                const data = await res.json();
+                if (data.results) {
+                    // Update local state with processed results
+                    const updatedEmails = emails.map(email => {
+                        const result = data.results.find((r: any) => r.id === email.id);
+                        if (result) {
+                            return { ...email, category: result.category, actionItems: result.actions, isProcessed: true };
+                        }
+                        return email;
+                    });
+                    setEmails(updatedEmails);
+                }
             }
         } catch (error) {
             console.error("Failed to process inbox", error);
@@ -42,7 +62,10 @@ export function InboxClient({ initialEmails }: InboxClientProps) {
         try {
             const res = await fetch("/api/emails/load", { method: "POST" });
             if (res.ok) {
-                router.refresh();
+                const data = await res.json();
+                if (data.emails) setEmails(data.emails);
+                if (data.prompts) setPrompts(data.prompts);
+                // Don't refresh router, rely on local state
             }
         } catch (error) {
             console.error("Failed to load mock data", error);
@@ -54,16 +77,15 @@ export function InboxClient({ initialEmails }: InboxClientProps) {
     const handleClearInbox = async () => {
         setLoading(true);
         try {
-            const res = await fetch("/api/emails/clear", { method: "POST" });
-            if (res.ok) {
-                setEmails([]);
-                router.refresh();
-            }
+            // Clear local state immediately
+            setEmails([]);
+            // Optional: Try to clear server too
+            await fetch("/api/emails/clear", { method: "POST" });
         } catch (error) {
             console.error("Failed to clear inbox", error);
         } finally {
             setLoading(false);
-            setIsClearModalOpen(false); // Close modal after action
+            setIsClearModalOpen(false);
         }
     };
 

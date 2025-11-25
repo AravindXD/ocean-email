@@ -41,7 +41,12 @@ export async function POST() {
       console.log("[DEBUG] Default prompts saved successfully");
     }
 
-    return NextResponse.json({ success: true, count: mockEmails.length });
+    return NextResponse.json({ 
+      success: true, 
+      count: mockEmails.length,
+      emails: mockEmails,
+      prompts: existingPrompts.length > 0 ? existingPrompts : defaultPromptsData
+    });
   } catch (error) {
     console.error("[ERROR] Error loading mock data:", error);
     return NextResponse.json({ error: "Failed to load mock data", details: String(error) }, { status: 500 });

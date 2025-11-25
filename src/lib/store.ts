@@ -21,26 +21,40 @@ interface AppState {
   updateEmail: (id: string, updates: Partial<Email>) => void;
 }
 
-export const useAppStore = create<AppState>((set) => ({
-  emails: [],
-  prompts: [],
-  drafts: [],
-  selectedEmailId: null,
-  filterCategory: null,
-  isLoading: false,
-  error: null,
+import { persist } from 'zustand/middleware';
 
-  setEmails: (emails) => set({ emails }),
-  setPrompts: (prompts) => set({ prompts }),
-  setDrafts: (drafts) => set({ drafts }),
-  setSelectedEmailId: (selectedEmailId) => set({ selectedEmailId }),
-  setFilterCategory: (filterCategory) => set({ filterCategory }),
-  setLoading: (isLoading) => set({ isLoading }),
-  setError: (error) => set({ error }),
+export const useAppStore = create<AppState>()(
+  persist(
+    (set) => ({
+      emails: [],
+      prompts: [],
+      drafts: [],
+      selectedEmailId: null,
+      filterCategory: null,
+      isLoading: false,
+      error: null,
 
-  updateEmail: (id, updates) => set((state) => ({
-    emails: state.emails.map((email) => 
-      email.id === id ? { ...email, ...updates } : email
-    ),
-  })),
-}));
+      setEmails: (emails) => set({ emails }),
+      setPrompts: (prompts) => set({ prompts }),
+      setDrafts: (drafts) => set({ drafts }),
+      setSelectedEmailId: (selectedEmailId) => set({ selectedEmailId }),
+      setFilterCategory: (filterCategory) => set({ filterCategory }),
+      setLoading: (isLoading) => set({ isLoading }),
+      setError: (error) => set({ error }),
+
+      updateEmail: (id, updates) => set((state) => ({
+        emails: state.emails.map((email) => 
+          email.id === id ? { ...email, ...updates } : email
+        ),
+      })),
+    }),
+    {
+      name: 'ocean-email-storage',
+      partialize: (state) => ({ 
+        emails: state.emails, 
+        prompts: state.prompts, 
+        drafts: state.drafts 
+      }),
+    }
+  )
+);
