@@ -5,10 +5,15 @@ Ocean-Email is a prompt-driven AI email assistant designed to revolutionize how 
 ## 🚀 Features
 
 - **🧠 Prompt-Driven Intelligence**: The core behavior of the agent (categorization, drafting, extraction) is controlled by user-editable prompts. You can tweak the "brain" of the agent without changing code.
+![alt text](imgs/prompt-driven.png)
 - **📂 Smart Inbox**: Automatically categorizes emails into **Important**, **Newsletter**, **Spam**, and **To-Do**.
+![alt text](imgs/inbox.png)
 - **✅ Action Item Extraction**: Parses emails to identify tasks, deadlines, and priorities, presenting them in a structured format.
+![alt text](imgs/action.png)
 - **💬 AI Chat Companion**: A context-aware chat interface that lives alongside your email. Ask it to "Summarize this", "Draft a reply", or "Find action items".
-- **📝 Draft Management**: Generates drafts based on your instructions. Drafts are saved for review and can be edited directly in the chat or the dedicated Drafts page.
+![alt text](imgs/companion.png)- 
+**📝 Draft Management**: Generates drafts based on your instructions. Drafts are saved for review and can be edited directly in the chat or the dedicated Drafts page.
+![alt text](imgs/drafts.png)
 - **🛡️ Privacy-First**: Drafts are never sent automatically. All AI actions are user-initiated or reviewable.
 - **🔌 Modular Architecture**: Built with a Repository pattern to easily swap the mock data backend for real Gmail/Outlook integration.
 
@@ -85,6 +90,45 @@ data/                    # Local JSON storage for mock data
 
 ## 🏗️ Architecture & Data Layer
 
+```mermaid
+graph TD
+    subgraph Client [Client - Browser]
+        UI[UI Components]
+        Store[Zustand Store]
+        Local[LocalStorage]
+        
+        UI <--> Store
+        Store <--> Local
+    end
+
+    subgraph Server [Server - Next.js API Routes]
+        Auth[NextAuth.js]
+        ProcessAPI[POST /api/emails/process]
+        LoadAPI[POST /api/emails/load]
+        ChatAPI[POST /api/chat]
+    end
+
+    subgraph External [External Services]
+        Gemini[Google Gemini AI]
+        Google[Google OAuth]
+    end
+
+    %% Data Flow
+    UI -- "1. Login" --> Auth
+    Auth -- "2. Verify" --> Google
+    
+    UI -- "3. Load Mock Data" --> LoadAPI
+    LoadAPI -- "4. Return JSON" --> UI
+    
+    UI -- "5. Process Emails (Stateless)" --> ProcessAPI
+    ProcessAPI -- "6. Categorize & Extract" --> Gemini
+    Gemini -- "7. Results" --> ProcessAPI
+    ProcessAPI -- "8. Update Store" --> UI
+
+    UI -- "9. Chat Context" --> ChatAPI
+    ChatAPI -- "10. Generate Reply" --> Gemini
+```
+
 Ocean-Email uses a **Repository Pattern** to abstract data access. This ensures that the application logic (UI, AI processing) is decoupled from *how* data is stored.
 
 - **Interfaces** (`src/lib/repos/types.ts`): Define the contract for data access (e.g., `IEmailRepository`).
@@ -150,7 +194,3 @@ class Database {
 - **Multi-Provider Support**: Add Outlook/Office365 support by implementing an `OutlookRepository`.
 - **Voice Interface**: Add speech-to-text for dictating replies.
 - **Mobile App**: Build a React Native version reusing the same API and logic.
-
-## 📄 License
-
-MIT

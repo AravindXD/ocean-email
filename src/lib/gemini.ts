@@ -4,17 +4,14 @@ import { ActionItem } from "@/types";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
 
-export async function categorizeEmail(emailContent: string, promptTemplate: string): Promise<"Important" | "Newsletter" | "Spam" | "To-Do" | "Uncategorized"> {
+export async function categorizeEmail(emailContent: string, promptTemplate: string): Promise<string> {
   try {
-    const prompt = `${promptTemplate}\n\nEmail Content:\n${emailContent}`;
+    const prompt = `${promptTemplate}\n\nEmail Content:\n${emailContent}\n\nReturn ONLY the category name.`;
     const result = await model.generateContent(prompt);
     const response = result.response;
-    const text = response.text().trim();
+    const text = response.text().trim().replace(/['"]/g, ""); // Remove quotes if present
 
-    const validCategories = ["Important", "Newsletter", "Spam", "To-Do"];
-    const category = validCategories.find(c => text.includes(c));
-    
-    return (category as "Important" | "Newsletter" | "Spam" | "To-Do") || "Uncategorized";
+    return text || "Uncategorized";
   } catch (error) {
     console.error("Error categorizing email:", error);
     return "Uncategorized";

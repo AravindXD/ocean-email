@@ -129,7 +129,7 @@ export function InboxClient({ initialEmails }: InboxClientProps) {
                     </div>
                 </div>
                 <div className="px-4 py-2 border-b border-gray-200 flex space-x-2 overflow-x-auto bg-white">
-                    {["All", "Important", "Newsletter", "Spam", "To-Do"].map((cat) => (
+                    {Array.from(new Set(["All", ...emails.map(e => e.category || "Uncategorized")])).sort().map((cat) => (
                         <button
                             key={cat}
                             onClick={() => setFilterCategory(cat === "All" ? null : cat)}
