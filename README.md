@@ -90,44 +90,7 @@ data/                    # Local JSON storage for mock data
 
 ## 🏗️ Architecture & Data Layer
 
-```mermaid
-graph TD
-    subgraph Client [Client - Browser]
-        UI[UI Components]
-        Store[Zustand Store]
-        Local[LocalStorage]
-        
-        UI <--> Store
-        Store <--> Local
-    end
-
-    subgraph Server [Server - Next.js API Routes]
-        Auth[NextAuth.js]
-        ProcessAPI[POST /api/emails/process]
-        LoadAPI[POST /api/emails/load]
-        ChatAPI[POST /api/chat]
-    end
-
-    subgraph External [External Services]
-        Gemini[Google Gemini AI]
-        Google[Google OAuth]
-    end
-
-    %% Data Flow
-    UI -- "1. Login" --> Auth
-    Auth -- "2. Verify" --> Google
-    
-    UI -- "3. Load Mock Data" --> LoadAPI
-    LoadAPI -- "4. Return JSON" --> UI
-    
-    UI -- "5. Process Emails (Stateless)" --> ProcessAPI
-    ProcessAPI -- "6. Categorize & Extract" --> Gemini
-    Gemini -- "7. Results" --> ProcessAPI
-    ProcessAPI -- "8. Update Store" --> UI
-
-    UI -- "9. Chat Context" --> ChatAPI
-    ChatAPI -- "10. Generate Reply" --> Gemini
-```
+![alt text](imgs/sysarch.png)
 
 Ocean-Email uses a **Repository Pattern** to abstract data access. This ensures that the application logic (UI, AI processing) is decoupled from *how* data is stored.
 

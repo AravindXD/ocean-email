@@ -41,7 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 docs
-
+demo_*
 # local data
 /data/users
 test-gemini.js
