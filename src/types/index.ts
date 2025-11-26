@@ -7,7 +7,7 @@ export interface Email {
   subject: string;
   body: string;
   timestamp: string;
-  category: "Important" | "Newsletter" | "Spam" | "To-Do" | "Uncategorized";
+  category: string;
   actionItems: ActionItem[];
   isProcessed: boolean;
   error?: string;
