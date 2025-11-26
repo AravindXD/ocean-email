@@ -13,15 +13,7 @@ export function EmailList() {
         ? emails.filter(e => e.category === filterCategory)
         : emails;
 
-    const getCategoryColor = (category: string) => {
-        switch (category) {
-            case "Important": return "bg-red-100 text-red-800";
-            case "Newsletter": return "bg-blue-100 text-blue-800";
-            case "Spam": return "bg-gray-100 text-gray-800";
-            case "To-Do": return "bg-yellow-100 text-yellow-800";
-            default: return "bg-gray-100 text-gray-600";
-        }
-    };
+    import { getCategoryColor } from "@/lib/utils";
 
     if (filteredEmails.length === 0) {
         return (

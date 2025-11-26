@@ -9,6 +9,7 @@ import { Loader2, RefreshCw } from "lucide-react";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { ConfirmationModal } from "@/components/ConfirmationModal";
+import { getCategoryColor } from "@/lib/utils";
 
 interface InboxClientProps {
     initialEmails: Email[];
@@ -136,8 +137,9 @@ export function InboxClient({ initialEmails }: InboxClientProps) {
                             className={clsx(
                                 "text-xs px-2 py-1 rounded-full border transition-colors whitespace-nowrap",
                                 (filterCategory === (cat === "All" ? null : cat))
-                                    ? "bg-blue-100 text-blue-800 border-blue-200 font-medium"
-                                    : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+                                    ? "ring-2 ring-offset-1 ring-blue-500 font-bold"
+                                    : "hover:opacity-80",
+                                cat === "All" ? "bg-gray-100 text-gray-700 border-gray-200" : getCategoryColor(cat)
                             )}
                         >
                             {cat}
