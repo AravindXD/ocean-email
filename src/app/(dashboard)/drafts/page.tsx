@@ -86,6 +86,15 @@ export default function DraftsPage() {
                 </header>
                 <div className="flex-1 p-6 space-y-4 overflow-y-auto">
                     <div>
+                        <label className="block text-sm font-medium text-gray-700">To</label>
+                        <input
+                            type="text"
+                            value={editingDraft.to || ""}
+                            onChange={(e) => setEditingDraft({ ...editingDraft, to: e.target.value })}
+                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border"
+                        />
+                    </div>
+                    <div>
                         <label className="block text-sm font-medium text-gray-700">Subject</label>
                         <input
                             type="text"
@@ -124,7 +133,7 @@ export default function DraftsPage() {
                     <p className="text-sm text-gray-500 mt-1">Manage your email drafts.</p>
                 </div>
                 <button
-                    onClick={() => setEditingDraft({ id: crypto.randomUUID(), subject: "", body: "", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() })}
+                    onClick={() => setEditingDraft({ id: crypto.randomUUID(), to: "", subject: "", body: "", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() })}
                     className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
                 >
                     <Plus className="h-4 w-4 mr-2" />
@@ -151,7 +160,10 @@ export default function DraftsPage() {
                                     <div className="px-4 py-4 sm:px-6 flex items-center justify-between">
                                         <div className="flex-1 min-w-0 cursor-pointer" onClick={() => setEditingDraft(draft)}>
                                             <div className="flex items-center justify-between">
-                                                <p className="text-sm font-medium text-blue-600 truncate">{draft.subject || "(No Subject)"}</p>
+                                                <div className="flex flex-col">
+                                                    <p className="text-sm font-medium text-blue-600 truncate">{draft.subject || "(No Subject)"}</p>
+                                                    {draft.to && <p className="text-xs text-gray-500">To: {draft.to}</p>}
+                                                </div>
                                                 <div className="ml-2 flex-shrink-0 flex">
                                                     <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                                         Draft

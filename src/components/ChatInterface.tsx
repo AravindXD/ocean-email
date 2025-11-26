@@ -201,7 +201,11 @@ CRITICAL INSTRUCTIONS:
                                 >
                                     <div className="whitespace-pre-wrap">{msg.text}</div>
                                     {draft && (
-                                        <DraftCard subject={draft.subject} body={draft.body} />
+                                        <DraftCard
+                                            to={selectedEmail?.sender.email || ""}
+                                            subject={draft.subject}
+                                            body={draft.body}
+                                        />
                                     )}
                                 </div>
                             );
@@ -358,7 +362,8 @@ CRITICAL INSTRUCTIONS:
     );
 }
 
-function DraftCard({ subject, body }: { subject: string; body: string }) {
+function DraftCard({ to, subject, body }: { to: string; subject: string; body: string }) {
+    const [editedTo, setEditedTo] = useState(to);
     const [editedSubject, setEditedSubject] = useState(subject);
     const [editedBody, setEditedBody] = useState(body);
     const [isSaved, setIsSaved] = useState(false);
@@ -371,6 +376,7 @@ function DraftCard({ subject, body }: { subject: string; body: string }) {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
+                    to: editedTo,
                     subject: editedSubject,
                     body: editedBody,
                 }),
@@ -388,6 +394,13 @@ function DraftCard({ subject, body }: { subject: string; body: string }) {
     return (
         <div className="mt-3 p-3 bg-gray-50 rounded-md border border-gray-200 space-y-2">
             <div className="text-xs font-semibold text-gray-500 uppercase">Draft Preview</div>
+            <input
+                type="text"
+                value={editedTo}
+                onChange={(e) => setEditedTo(e.target.value)}
+                className="w-full text-sm font-medium border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                placeholder="To"
+            />
             <input
                 type="text"
                 value={editedSubject}

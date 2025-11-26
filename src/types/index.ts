@@ -30,6 +30,7 @@ export interface Prompt {
 export interface Draft {
   id: string;
   emailId?: string; // If reply
+  to: string;
   subject: string;
   body: string;
   createdAt: string;
