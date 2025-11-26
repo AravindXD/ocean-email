@@ -5,6 +5,7 @@ import { Email } from "@/types";
 import { formatDistanceToNow } from "date-fns";
 import clsx from "clsx";
 import { Star, AlertCircle, Mail, Trash2 } from "lucide-react";
+import { getCategoryColor } from "@/lib/utils";
 
 export function EmailList() {
     const { emails, selectedEmailId, setSelectedEmailId, filterCategory } = useAppStore();
@@ -13,7 +14,7 @@ export function EmailList() {
         ? emails.filter(e => e.category === filterCategory)
         : emails;
 
-    import { getCategoryColor } from "@/lib/utils";
+
 
     if (filteredEmails.length === 0) {
         return (
